@@ -1645,6 +1645,20 @@ The window shows the menu commands only. Keys that work in one view only, for ex
 
 Select `View > Dark Theme` or `View > Light Theme`.
 
+## About and updates
+
+Select `Options > About Lazy Arranger Midi DAW` to see the app version.
+
+The app checks the public release page when it starts. If a newer version is available, the app shows a message with three buttons:
+
+- `Download` opens the public release page in your browser.
+- `Later` closes the message. The app shows the message again at the next start.
+- `Skip This Version` hides this version. The app shows the message again only when a newer version is available.
+
+Select `Options > Check for Updates...` to check now. The app tells you when it has the latest version, or when it cannot reach the release page.
+
+The check only reads the public release page. It sends no song data.
+
 ## If something goes wrong
 
 | Problem | What to do |
