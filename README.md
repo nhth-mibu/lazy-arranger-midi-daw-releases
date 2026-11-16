@@ -93,6 +93,7 @@ Tested with the Yamaha PSR-S970, Novation Launchkey Mini MK3, Behringer X-Touch 
 
 ## Learn more
 
+- [Feature sheet](docs/Arranger-MIDI-DAW-Feature-Sheet.pdf) ([Word](docs/Arranger-MIDI-DAW-Feature-Sheet.docx))
 - [User manual](docs/user-manual.md)
 - [Device profiles](docs/device-profiles.md)
 - [Controller pages](docs/controllers.md)
