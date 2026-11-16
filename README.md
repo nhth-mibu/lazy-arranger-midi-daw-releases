@@ -38,6 +38,8 @@ the `.sha256` file.
 - The packages do not include a General MIDI SoundFont. The app can download
   one, or you can choose your own SF2 file.
 - Third-party notices are included in each package.
+- Releases before v0.0.17 use the former name, Arranger MIDI DAW, in the app
+  window and installer.
 
 The "Source code" archives that GitHub adds to a release contain only this
 README. They are not the application source.
