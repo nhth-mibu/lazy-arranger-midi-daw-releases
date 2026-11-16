@@ -1,49 +1,99 @@
-# Lazy Arranger Midi DAW releases
+# Lazy Arranger Midi DAW
 
-This repository holds the public binaries and release notes for **Lazy Arranger
-Midi DAW**. The application's source code is private.
+Lazy Arranger Midi DAW is a MIDI arranger DAW with AI assist. Compose, arrange, score and perform in one desktop studio.
+
+[Download the latest public release](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases/latest).
 
 ## Download
 
 Open [Releases](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases)
-and choose the latest release.
+and choose the latest release. Each release includes:
 
-Each release has:
-
-- **macOS:** `ArrangerMidiDaw-macos-arm64.dmg` or the current DMG name.
-- **Windows:** `ArrangerMidiDaw-windows-x64.zip`, for Windows x64.
-- **Linux:** `ArrangerMidiDaw-linux-x64-ubuntu-26.04.tar.gz`, for Ubuntu 26.04
-  x64 and newer compatible distributions.
+- **macOS:** `ArrangerMidiDaw-macos-universal.dmg` (arm64 and x86_64).
+- **Windows:** `ArrangerMidiDaw-windows-x64.zip`.
+- **Linux:** `ArrangerMidiDaw-linux-x64-ubuntu-26.04.tar.gz`.
+- The Arranger Demo Styles ZIP when a release includes it.
 - A `.sha256` file for each package.
-- The demo style pack when a release includes it.
 
-Download the package and its `.sha256` file. Check the package before you open
-it:
+Check a package before opening it:
 
 ```sh
-shasum -a 256 -c ArrangerMidiDaw-macos-arm64.dmg.sha256
+shasum -a 256 -c ArrangerMidiDaw-macos-universal.dmg.sha256
 ```
 
-On Windows, use `certutil -hashfile <file> SHA256` and compare the result with
-the `.sha256` file.
+The macOS app is ad-hoc signed, not Developer ID signed or notarized. Windows
+needs the Microsoft Visual C++ v14 x64 Redistributable. The Linux package targets
+Ubuntu 26.04 x64. The packages do not include a General MIDI SoundFont.
 
-## Notes
+The application source code is private. This public repository holds the
+documentation and the binaries only. GitHub's "Source code" archives for its
+tags contain only these public files, not the application source.
 
-- The macOS app is ad-hoc signed, not Developer ID signed or notarized. macOS
-  may block the first launch. Review System Settings > Privacy & Security >
-  Open Anyway only for a build you trust.
-- Windows needs the Microsoft Visual C++ v14 x64 Redistributable.
-- Linux packages target Ubuntu 26.04 x64. Older distributions may need newer
-  system libraries.
-- The packages do not include a General MIDI SoundFont. The app can download
-  one, or you can choose your own SF2 file.
-- Third-party notices are included in each package.
-- Releases before v0.1.0 use the former name, Arranger MIDI DAW, in the app
-  window and installer.
+## Timeline
 
-The "Source code" archives that GitHub adds to a release contain only this
-README. They are not the application source.
+Make the song. Record MIDI and audio, edit notes in the piano roll, comp takes and crossfade clips. Move sections, loop a range, quantise, split and join clips. Draw automation for volume, pan, sends and any plugin control. Analyse audio into stems, notes, chords, instruments and lyrics.
 
-## Link
+![Timeline with MIDI and audio clips](docs/images/phase1-timeline.png)
 
-- [Latest release](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases/latest)
+## Score
+
+Turn the music into printed notation. Read and write full scores, grand staves and drum staves. Enter notes with the mouse, the computer keyboard or a MIDI keyboard. Add chord symbols, lyrics, dynamics and articulations. Find chords from the notes. Print the score or export PDF, and exchange MusicXML with other notation programs.
+
+![Score view with a piano part](docs/images/phase4-score.png)
+
+## Drums
+
+Build a drum pattern step by step. Choose the step size and pattern length, set each hit, and repeat the pattern through the song. Cut, copy and paste rows or whole patterns. Play a pattern from one bar to another on the same track or on a new drum track.
+
+![Drums view with a step pattern](docs/images/phase2-beat.png)
+
+## Loops
+
+Try arrangements before you commit. Launch clips and scenes in time, combine tracks, and record the performance to the Timeline. Turn Timeline sections into scenes. Load Yamaha styles or Korg styles saved in the SFF format. Play their sections with chords. Write a section onto Timeline tracks.
+
+![Loops with scenes and loop slots](docs/images/phase8-grid-audio.png)
+
+## AI assist
+
+Ask the assistant for changes in plain words: add a track, write notes, find
+chords, or fill a section from a style. Each change is one undo step.
+
+- **Skills:** recipes and data that the assistant can load. The built-in
+  **Common chord progressions** skill covers pop, rock, jazz and blues. Add
+  your own JSON skill packs in the app's `Skills` folder, without rebuilding
+  the app. See [Skills](docs/user-manual.md#skills).
+- **Speech input:** click the **microphone** button in the AI chat, speak, then
+  click it again. The built-in Whisper writes the words into the message box.
+  Voice input needs a Whisper model from `Options > Audio Analysis Tools...`.
+- **Text to speech (TTS):** click the **speaking person** button to speak every
+  complete AI reply once. Use the system voice, or install the offline Kitten or
+  Kokoro voice in `Options > Speech...`. See [Speech](docs/user-manual.md#speech).
+
+The speech buttons are in the chat panel. They are global switches, not buttons
+on each message.
+
+## More
+
+- **Audio:** WAV, AIFF, FLAC, Ogg and, on macOS, MP3 and M4A. Record to WAV, follow the song tempo, and analyse audio into parts.
+- **Instruments:** the built-in SoundFont player, the drum sampler, VST3 and Audio Unit instruments.
+- **Effects:** VST3 and Audio Unit effects on tracks, buses and the master.
+- **Mixer:** balance tracks, buses and the master with volume, pan, sends, mute and solo.
+- **Automation:** volume, pan, reverb send, chorus send and plugin controls.
+- **Styles:** open and save Yamaha `.sty` and `.prs` files. Load Korg styles saved in the SFF format.
+- **Files:** MIDI, MusicXML, SoundFont and `.arranger` projects.
+
+## Works with
+
+- Yamaha arrangers
+- Korg Pa arrangers (GM bank)
+- MIDI controllers
+- MIDI mixers
+
+Tested with the Yamaha PSR-S970, Novation Launchkey Mini MK3, Behringer X-Touch Mini, Roland D-05 and Novation XioSynth 49. Other models were not tested.
+
+## Learn more
+
+- [User manual](docs/user-manual.md)
+- [Device profiles](docs/device-profiles.md)
+- [Controller pages](docs/controllers.md)
+- [Public releases](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases)
