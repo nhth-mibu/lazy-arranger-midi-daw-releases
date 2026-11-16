@@ -42,7 +42,6 @@ the `.sha256` file.
 The "Source code" archives that GitHub adds to a release contain only this
 README. They are not the application source.
 
-## Links
+## Link
 
-- [User manual](https://github.com/nhth-mibu/arranger-midi-daw/blob/main/docs/user-manual.md)
 - [Latest release](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases/latest)
