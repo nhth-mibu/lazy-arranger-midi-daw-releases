@@ -1,8 +1,106 @@
 # Lazy Arranger Midi DAW
 
-Lazy Arranger Midi DAW is a MIDI arranger DAW with AI assist. Compose, arrange, score and perform in one desktop studio.
+A desktop studio for people who arrange songs. Write with styles and chords,
+let the AI help with the arrangement, print the score, and play it all on your
+own keyboards and synths. Light and fast, for macOS, Windows and Linux.
 
 [Download the latest public release](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases/latest).
+
+## Arranger keyboard styles, on the computer
+
+Open Yamaha `.sty` and `.prs` styles, and Korg styles in the SFF format. Play
+the sections with chords, or fill tracks from a style: the parts follow the
+chords of your song. Edit the parts and their chord rules, then save a new
+style. Make a style from your own clips or from a MIDI file.
+
+When the song is ready, export it for the Yamaha PSR-S970. Each track gets the
+nearest keyboard voice, with tempo and lyrics. Copy it to a USB stick and play
+it on the keyboard without the computer.
+
+![Style parts filled onto new tracks](docs/images/manual-style.png)
+
+## A style from any recording
+
+Give the app a recording, or a link to a song online. It splits the song into
+stems, finds the notes, chords and lyrics, and makes a style that you can play
+on the keyboard. When a chord or bass note is not clear, the app asks you:
+listen to A and B, and pick one.
+
+![Style from Audio: from a recording to a playable style](docs/images/manual-style-from-audio.png)
+
+## An AI that works inside your song
+
+Open the chat and ask in plain words: "add a bass line that follows the
+chords", "make the drums quieter in the chorus". The assistant changes the
+song for you, and each change is one undo step. Use your Claude, ChatGPT or
+Gemini subscription, or an API key. Speak to it and let it read the answers
+aloud.
+
+The app is also an MCP server, so Claude Desktop, Claude Code and other MCP
+clients can open and change your project from outside the app.
+
+![The AI chat next to the Timeline](docs/images/ai-chat.png)
+
+## Arranging help
+
+- **Arrangement Doctor** finds a chorus that does not lift, parts that crowd
+  the melody, busy bars and parts that repeat too much. It proposes fixes.
+- **Fit to My Synths** checks the song against each of your hardware synths:
+  how many notes they can play at once, their parts, note ranges and drum kits.
+- **Groove** takes the feel of a drummer, a file or a few words ("lazy swing,
+  behind the beat") and puts it on stiff parts.
+- **Song Forms** makes a short version, a long intro, a gig version or a solo
+  break, with fills and lead-ins where sections meet.
+
+Each tool lets you play A and B before you choose. Nothing changes until you
+say so.
+
+![Arrangement Doctor with a proposal and its options A and B](docs/images/manual-arrangement-doctor.png)
+
+## Smart chords
+
+Type `Am F C G` or `vi IV I V` into the chord lane. The app suggests the next
+chord, gives you 16 chord pads for the song key (also on the Launchkey pads),
+writes down the chords you play on the keyboard, and reharmonizes a bar with
+the bass and chord parts moved to match.
+
+![Chord lane and the Smart Chords panel](docs/images/smart-chords.png)
+
+## A real score
+
+Every song is also printed music. Full scores, grand staves and drum staves,
+with chord symbols, guitar chords, lyrics and dynamics. Enter notes with the
+mouse, the computer keyboard or a MIDI keyboard. Print, or export PDF and
+MusicXML.
+
+![Score with chord symbols and guitar chords](docs/images/score-chords.png)
+
+## Made for your keyboards and synths
+
+- Plug in a keyboard or controller and play. The app turns its input on.
+- Device profiles tell the app the sounds and messages of each synth. Ready
+  for the Yamaha PSR-S970, Roland D-05, Novation XioSynth, Korg Pa, GS and XG.
+  The AI can write a profile for a new synth from its MIDI chart.
+- Sound editors with knobs for the Roland D-05 and Novation XioSynth.
+- Mixer pages for the Launchkey Mini MK3, X-Touch Mini and XioSynth. MIDI
+  Learn for any other controller.
+- Import a multitrack recording from the Zoom LiveTrak L6max.
+
+![The sound editor of the Roland D-05](docs/images/sound-editor.png)
+
+## Kids Mode
+
+A child presses any key and the song plays, as if the child plays it. Stop
+pressing, and the song waits.
+
+![Kids Mode](docs/images/kids-mode.png)
+
+## And a full DAW
+
+MIDI and audio tracks, piano roll, step drum patterns, a loop slicer, a clip
+grid for live scenes, a mixer with buses and sends, automation, and VST3 and
+Audio Unit plugins. The app is native and small. When nothing plays, it uses
+almost no CPU.
 
 ## Download
 
@@ -29,72 +127,14 @@ The application source code is private. This public repository holds the
 documentation and the binaries only. GitHub's "Source code" archives for its
 tags contain only these public files, not the application source.
 
-## Timeline
-
-Make the song. Record MIDI and audio, edit notes in the piano roll, comp takes and crossfade clips. Move sections, loop a range, quantise, split and join clips. Draw automation for volume, pan, sends and any plugin control. Analyse audio into stems, notes, chords, instruments and lyrics.
-
-![Timeline with MIDI and audio clips](docs/images/phase1-timeline.png)
-
-## Score
-
-Turn the music into printed notation. Read and write full scores, grand staves and drum staves. Enter notes with the mouse, the computer keyboard or a MIDI keyboard. Add chord symbols, lyrics, dynamics and articulations. Find chords from the notes. Print the score or export PDF, and exchange MusicXML with other notation programs.
-
-![Score view with a piano part](docs/images/phase4-score.png)
-
-## Drums
-
-Build a drum pattern step by step. Choose the step size and pattern length, set each hit, and repeat the pattern through the song. Cut, copy and paste rows or whole patterns. Play a pattern from one bar to another on the same track or on a new drum track.
-
-![Drums view with a step pattern](docs/images/phase2-beat.png)
-
-## Loops
-
-Try arrangements before you commit. Launch clips and scenes in time, combine tracks, and record the performance to the Timeline. Turn Timeline sections into scenes. Load Yamaha styles or Korg styles saved in the SFF format. Play their sections with chords. Write a section onto Timeline tracks.
-
-![Loops with scenes and loop slots](docs/images/phase8-grid-audio.png)
-
-## AI assist
-
-Ask the assistant for changes in plain words: add a track, write notes, find
-chords, or fill a section from a style. Each change is one undo step.
-
-- **Skills:** recipes and data that the assistant can load. The built-in
-  **Common chord progressions** skill covers pop, rock, jazz and blues. Add
-  your own JSON skill packs in the app's `Skills` folder, without rebuilding
-  the app. See [Skills](docs/user-manual.md#skills).
-- **Speech input:** click the **microphone** button in the AI chat, speak, then
-  click it again. The built-in Whisper writes the words into the message box.
-  Voice input needs a Whisper model from `Options > Audio Analysis Tools...`.
-- **Text to speech (TTS):** click the **speaking person** button to speak every
-  complete AI reply once. Use the system voice, or install the offline Kitten or
-  Kokoro voice in `Options > Speech...`. See [Speech](docs/user-manual.md#speech).
-
-The speech buttons are in the chat panel. They are global switches, not buttons
-on each message.
-
-## More
-
-- **Audio:** WAV, AIFF, FLAC, Ogg and, on macOS, MP3 and M4A. Record to WAV, follow the song tempo, and analyse audio into parts.
-- **Instruments:** the built-in SoundFont player, the drum sampler, VST3 and Audio Unit instruments.
-- **Effects:** VST3 and Audio Unit effects on tracks, buses and the master.
-- **Mixer:** balance tracks, buses and the master with volume, pan, sends, mute and solo.
-- **Automation:** volume, pan, reverb send, chorus send and plugin controls.
-- **Styles:** open and save Yamaha `.sty` and `.prs` files. Load Korg styles saved in the SFF format.
-- **Files:** MIDI, MusicXML, SoundFont and `.arranger` projects.
-
-## Works with
-
-- Yamaha arrangers
-- Korg Pa arrangers (GM bank)
-- MIDI controllers
-- MIDI mixers
-
-Tested with the Yamaha PSR-S970, Novation Launchkey Mini MK3, Behringer X-Touch Mini, Roland D-05 and Novation XioSynth 49. Other models were not tested.
-
 ## Learn more
 
-- [Feature sheet](docs/Arranger-MIDI-DAW-Feature-Sheet.pdf) ([Word](docs/Arranger-MIDI-DAW-Feature-Sheet.docx))
-- [User manual](docs/user-manual.md)
-- [Device profiles](docs/device-profiles.md)
-- [Controller pages](docs/controllers.md)
-- [Public releases](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases)
+- Feature sheet: a two-page overview, as [PDF](docs/Arranger-MIDI-DAW-Feature-Sheet.pdf) or [Word](docs/Arranger-MIDI-DAW-Feature-Sheet.docx)
+- [User manual](docs/user-manual.md): how to use the app, in simple English
+- [Device profiles](docs/device-profiles.md): teach the app a new synth with one YAML file
+- [Controller mixer pages](docs/controllers.md): what each knob and button does
+- [All releases](https://github.com/nhth-mibu/lazy-arranger-midi-daw-releases/releases) and their release notes
+
+Tested with the Yamaha PSR-S970, Roland D-05, Novation Launchkey Mini MK3,
+Novation XioSynth 49, Behringer X-Touch Mini and Zoom LiveTrak L6max. Other
+models were not tested.

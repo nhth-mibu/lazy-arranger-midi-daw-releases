@@ -41,6 +41,13 @@ mixer:                     # controller number for each mixer knob, or none
 reset:                     # optional SysEx, sent by "Reset device"
   - "F0 41 10 42 12 40 00 7F 00 41 F7"
 notes: Free text for the user.
+capabilities:              # optional, for AI > Fit to My Synths
+  polyphony: 8             # notes at once over all parts (use the safe number)
+  parts: 1                 # channels with different sounds at once
+  lowest: 0                # MIDI note range the synth plays
+  highest: 127
+  controllers: [1, 7, 64]  # optional: the controllers it reacts to
+  source: manual           # where the numbers come from: manual, estimate...
 
 sounds:
   - group: "Preset 1"
@@ -50,6 +57,11 @@ sounds:
 ```
 
 Use `-` for a bank byte the device doesn't want sent.
+
+Without `capabilities`, the hardware check says that it doesn't know the
+numbers. A patch with two tones, layers or a long release can use more
+voices than the specification says, so give the safe number. The user can
+change the numbers in the app; their numbers win over the profile.
 
 ## Sound editor
 
@@ -151,6 +163,42 @@ sounds:
       - ["Big Pad", -, 1, 12]
 ```
 
+## Audio interfaces
+
+A device that is also a USB audio interface can name its inputs and outputs in
+an `audio:` map. An audio track then shows these names in `Input:` in the
+inspector.
+
+```yaml
+audio:
+  devices: ["L6max"]           # parts of the audio device name, case ignored
+  inputs:                      # in the order the computer lists them
+    - "CH1"                    # one channel
+    - { name: "CH5", channels: 2 }   # a stereo pair
+  outputs:
+    - { name: "USB 1/2", channels: 2 }
+```
+
+The app uses the names only when the open device has the same number of input
+channels as the list. Otherwise it uses `In 1+2`, `In 1 (mono)` and so on.
+
+## Zoom LiveTrak L6max
+
+`zoom-l6max.yaml` matches only the `L6max Mixer Control Port` (Windows:
+`MIDIIN2/MIDIOUT2 (ZOOM L6max)`). It does not match the `L6max MIDI I/O Port`:
+that port goes to the MIDI IN/OUT jacks, so use the profile of the device on
+the jacks. Do not use the `for L6 Editor Port`.
+
+- The track faders send nothing to this port. The L6max takes its mixer
+  settings on controller numbers that you set in ZOOM L6 Editor.
+- `Track > Synth Sound Editor...` has the EQ controls with the factory numbers
+  that the manual shows (EQ HI and MID FREQ for CH1-8, EQ MID and LO for
+  CH1-4). The manual does not print the numbers for LEVEL, PAN, MUTE and the
+  sends.
+- The track sound list has Scene A-D (program change 0-3).
+- In Multi Track USB mode the 14 inputs are named CH1-CH4, CH5-CH8 (stereo) and
+  MASTER (stereo).
+
 ## Writing one with an AI
 
 Give the AI this page and the device manual's MIDI implementation chart and
@@ -173,4 +221,5 @@ The app reports the line number when a profile has a mistake.
 | `yamaha-psr-s970.yaml` | PSR-S970 Data List, Voice List |
 | `roland-d-05.yaml` | D-05 Parameter Guide, Sound List and MIDI Implementation (sound editor: SysEx address map) |
 | `novation-xiosynth.yaml` | XioSynth MIDI Implementation chart (sound editor: controller and NRPN lists) |
+| `zoom-l6max.yaml` | L6max Operation Manual: USB MIDI ports, MIDI CC# Mapping picture, MIDI implementation chart, USB audio mode |
 | `generic-gs.yaml`, `generic-xg.yaml` | GM sound set with GS and XG resets |

@@ -1,10 +1,52 @@
 # Lazy Arranger Midi DAW user manual
 
-This manual tells you how to use Lazy Arranger Midi DAW, a MIDI arranger DAW
-with AI assist. It includes only the functions that the app has now. The manual
-gets a new section with each new phase.
+This manual tells you how to use Lazy Arranger Midi DAW. The app is a desktop
+studio for arrangers. You write songs with styles and chords, the AI helps you
+with the arrangement, and you play the song on your keyboards and synths. The
+manual includes only the functions that the app has now.
 
 On Windows and Linux, use the `Ctrl` key where the manual says `Cmd`.
+
+## What the app can do
+
+These are the main functions of the app. Each item has a link to its section.
+
+- **Arranger styles.** Open Yamaha and Korg styles. Fill tracks from a style.
+  The parts follow the chords of the song. Change a style and save it. See
+  [Styles](#styles).
+- **Songs for the keyboard.** Export the song for the Yamaha PSR-S970. Each
+  track gets a keyboard voice. See
+  [Play your song on the PSR-S970](#play-your-song-on-the-psr-s970).
+- **A style from a recording.** Give the app an audio file or a link. The app
+  makes a style that you can play on the keyboard. See
+  [Style from Audio](#make-a-style-from-a-recording-style-from-audio).
+- **Take a recording apart.** The app finds the stems, notes, chords and lyrics
+  of a song. When a place is not clear, the app asks you. See
+  [Take a recording apart](#take-a-recording-apart-stems-notes-chords-lyrics)
+  and [Check the transcription](#check-the-transcription-the-app-asks-you).
+- **AI chat.** Ask for a change in plain words. The assistant changes the
+  song. Each change is one undo step. Other AI programs can connect to the app
+  with MCP. See [Talk to the app](#talk-to-the-app-ai-assistants).
+- **Arranging help.** The Arrangement Doctor finds problems in the arrangement
+  and proposes fixes. Fit to My Synths makes the song fit your synths. See
+  [Arranging help](#arranging-help).
+- **Groove.** Put the feel of one part, a file or some words on other parts.
+  See [Groove](#groove).
+- **Song Forms.** Make a short version, a long intro, a gig version or a solo
+  break of the song. See [Song Forms](#song-forms).
+- **Smart chords.** Type chords, play chord pads, record the chords that you
+  play, and reharmonize a bar. See [Smart chords](#smart-chords).
+- **Score.** See and print the song as music, with chords and lyrics. See
+  [Score view](#score-view).
+- **Your synths and controllers.** The app turns on each keyboard and
+  controller that you connect. It knows the sounds of your synths and has sound
+  editors for some of them. See [Your synths](#your-synths) and
+  [Hardware controllers](#hardware-controllers).
+- **Kids Mode.** A child presses keys and the song plays. See
+  [Kids Mode](#kids-mode).
+
+The app also has all the usual functions of a DAW: MIDI and audio tracks,
+drum patterns, a slicer, a clip grid, a mixer, automation and plugins.
 
 ## Words in this manual
 
@@ -38,7 +80,8 @@ On Windows and Linux, use the `Ctrl` key where the manual says `Cmd`.
 
 1. Open the app.
 2. Select `Options > Audio and MIDI Settings...`.
-3. Select your audio output. Enable your MIDI keyboard as an input.
+3. Select your audio output. Connect your MIDI keyboard. The app turns on its
+   input. A dot in the bottom bar comes on when you play.
 4. Get sounds for the built-in instrument. The first time you start the app,
    it asks to download GeneralUser GS (free, 32 MB). Click `Download`.
    To do this later, select `File > Download GM SoundFont...`.
@@ -47,6 +90,30 @@ On Windows and Linux, use the `Ctrl` key where the manual says `Cmd`.
 6. Push `R` to record. Play some notes.
 7. Push `Space` to stop. The app makes a clip with your notes.
 8. Push `Space` again to hear the clip.
+
+## Autosave and crash recovery
+
+The app keeps a copy of your unsaved changes. It writes the copy one minute
+after a change, and again each minute while you make more changes. When you
+save the project or quit the app, it removes the copy.
+
+If the app or the computer stops before you save, the app asks at the next
+start: `Recover unsaved work?`
+
+- Click `Recover` to open the copy. The title shows `*` because the work is
+  not saved yet. Select `File > Save` to keep it. If the work came from a
+  project file, Save writes to that file.
+- Click `Discard` to delete the copy.
+- Click `Later` to keep the copy. The app asks again at the next start.
+
+The copies are in the `Autosave` folder next to the app settings
+(`~/Library/Application Support/Arranger MIDI DAW/Autosave` on macOS,
+`%APPDATA%\Arranger MIDI DAW\Autosave` on Windows,
+`~/.config/Arranger MIDI DAW/Autosave` on Linux). The app deletes copies that
+are older than 30 days.
+
+Note: the copy has the plugin settings from the last time you closed a plugin
+window or saved.
 
 ## Demo songs
 
@@ -124,6 +191,8 @@ the loaded SoundFont, or the General MIDI name when the app has no SoundFont.
 | Loop on or off | `L` |
 | Metronome on or off | `C` |
 
+- When the song stops, the app ends all notes on the synths that the song uses.
+- If a note continues to sound, click the stop button again. The playhead goes to the start, and the app sends "All Sound Off" and "All Notes Off" to all synths that the song uses.
 - To move the playhead, click the top half of the ruler.
 - To set the loop, drag in the bottom half of the ruler.
 - To change the tempo, drag the tempo value or double-click it.
@@ -228,6 +297,7 @@ The app does not change your audio files. A clip only tells the app which part o
 | --- | --- |
 | WAV, AIFF, FLAC, Ogg Vorbis | On all computers |
 | MP3, M4A (AAC), CAF | On macOS |
+| Audio from MP4, MOV, MKV, WebM, AVI, WMV and MPEG video | With FFmpeg installed |
 
 The same file types work for audio clips, audio loops, drum samples and the slicer.
 The app reads the complete file into memory. A file that is not a WAV file can be a maximum of 45 minutes long.
@@ -240,6 +310,15 @@ The app reads the complete file into memory. A file that is not a WAV file can b
 The app puts the clip at the bar of the playhead. If the selected track is not an audio track, the app makes a new audio track.
 
 You can also drag audio files from the Finder to the Timeline, or double-click an empty place on an audio track. The clip then starts at that bar.
+
+### Import audio from a video
+
+1. Put the FFmpeg executable on your system PATH or beside the app executable. On macOS, the app also checks `/opt/homebrew/bin` and `/usr/local/bin`.
+2. Select `File > Import Audio File...` and select the video. You can also drag the video to the Timeline.
+
+The app reads the first audio stream as stereo audio at 48 kHz. The video must contain an audio stream that FFmpeg can decode. Audio can be up to 45 minutes long. An import stops with an error if decoding takes more than two minutes.
+
+The audio clip refers to the original video file. Keep that file available when you reopen the project. The app reads its audio once per session and keeps it in memory. Temporary decoding files are removed after import.
 
 ### Record audio
 
@@ -254,6 +333,33 @@ You can also drag audio files from the Finder to the Timeline, or double-click a
 The app saves the recording as a 24-bit WAV file and puts a clip on the track.
 If the project has a file, the WAV file goes into a folder next to it. The folder has the name of the project and the word `Audio`.
 If the project has no file yet, the WAV file goes into `Music/Arranger MIDI DAW/Recordings`.
+
+### Choose the input
+
+An audio track records from the first two inputs of the audio device. To use
+another input:
+
+1. Select the audio track.
+2. Click `Input:` in the inspector.
+3. Select the input. A stereo input records a stereo file. A mono input records a mono file.
+
+The app opens the input in `Audio and MIDI settings` if it is closed.
+For a Zoom LiveTrak L6max in Multi Track mode, the list shows the names of
+its channels: `CH1` to `CH8` and `MASTER`.
+
+### Import an L6max recording
+
+The Zoom LiveTrak L6max records each channel to its microSD card.
+
+1. Copy the project folder (`RECORDER` > `yymmdd_hhmmss`) to your computer.
+2. Select `File` > `Import L6max Recording...`.
+3. Select the project folder.
+
+The app adds one audio track for each channel, at bar 1. It uses the last
+take of each channel. The `Master` track is the L6max stereo mix. It starts
+muted.
+
+![An L6max recording on the Timeline: one audio track for each channel](images/l6max-import.png)
 
 ### Hear the input
 
@@ -359,6 +465,31 @@ Chords do not need the tools.
 Whisper often hears sung words incorrectly. To correct them, select `Fix Lyrics with AI` after the analysis. The AI chat reads the words and corrects them. You can also correct a word in the Score.
 
 The AI assistant can also start an analysis: for example, "take the audio clip apart and put the lyrics on the score".
+
+### Check the transcription (the app asks you)
+
+Some places in a recording are not clear. For example, the bass can play E or A. The app finds these places after an analysis and asks you. You listen and choose.
+
+1. After the analysis, select `Check the Chords` in the analysis window. You can also select `Track > Check the Transcription...` or `AI > Check the Transcription...`.
+2. The AI panel shows a card for each place, the most useful first. Each card has two choices:
+   - `A` is what the analysis found.
+   - `B` is the other possible bass note or chord.
+3. Select `Original` to hear the recording at that place. Select `Play A` or `Play B` to hear the recording with a guide: a piano chord and its bass note. The place plays in a loop.
+4. Select `Use` below the choice that you hear.
+
+When you use a choice:
+
+- The chord symbol at that place changes.
+- The bass notes on the old bass note move to the new note. Other notes do not change.
+- The app keeps your answer in the analysis. The app does not ask about that place again. `Style from Audio` uses your answer.
+
+`Same answer in similar places` is on by default. Then one answer also changes the other places with the same two choices.
+
+Select `Undo` to take back the change in the song. Select `Dismiss` to hide a card without an answer.
+
+The first version asks about the bass note and the chord root only. The numbers on a card compare the two choices. They are not chances. With stems, the app uses the bass stem and finds more. Without stems (chords only), the app asks only when the other choice fits better.
+
+The AI assistant can ask the questions too: for example, "check the chords of the analysis with me".
 
 ## Drum sampler
 
@@ -511,6 +642,9 @@ audio clips of that track on the Timeline are silent.
 A clip does not start immediately. It starts at the subsequent bar, thus all
 clips stay in time. To change this, select a different value in `Clips start`.
 
+If the song is stopped, the first clip starts at once. The playhead moves back
+to the start of its bar, thus the clips that you start after it stay in time.
+
 A clip that waits flashes. A clip that plays shows a progress line.
 
 A track plays one slot at a time. While any slot is active, the Clip grid
@@ -533,6 +667,59 @@ and the Timeline plays your recording.
 3. Push `R` again.
 
 The app adds your notes to the clip in the slot.
+
+## Smart chords
+
+The chord lane is the row under the bar numbers on the Timeline. It shows the chord symbols of the song. The Score, Style Fill and the AI tools use the same chords.
+
+### Type chords
+
+1. Double-click the chord lane at a bar. A chord box opens.
+2. Type chord names or roman numerals, for example `Am F C G` or `vi IV I V`.
+3. Push Enter.
+
+Without `|`, each chord is one bar. `|` ends a bar, and the chords in that bar share it: `Am F | C G` is two bars. `%` repeats the bar before. `/` holds a chord.
+
+Under the box, the app shows the next chords to try. Click one to add it. Right-click the chord lane for more: the next chord for a bar, Reharmonize, Delete, and Find Chords from the Music.
+
+### The Smart Chords panel
+
+![The chord lane and the Smart Chords panel](images/smart-chords.png)
+
+Open it with AI > Smart Chords (Cmd+Shift+K). It has four parts:
+
+- **Type chords**: the same typing, with the next chord ideas and the bar to start from.
+- **Chord pads**: 16 chords for the song key. Teal pads are the chords of the key. Amber pads are borrowed from the other mode (major or minor). Violet pads are secondary dominants. Press a pad to hear the chord on the selected track. Set the inversion, the voicing and the octave under the pads. "Smooth" voicing moves the notes as little as possible.
+- **From the keyboard**: turn on "Write the chords I play". While you record, each chord you play goes to the chord lane at the grid (a bar, half a bar or a beat). When the song is stopped, the chord goes to the lane at the playhead when you release the keys, and the playhead moves on. "Left hand" uses only the keys below the split point, as on an arranger keyboard.
+- **Reharmonize**: put the playhead on a chord and click Reharmonize. The app shows other chords (for example a tritone substitute, a borrowed chord or a ii-V into the next chord). Each option also moves the chord and bass parts. The melody and the drums do not change. Click Play A, Play B and Original to compare. Click Use to keep one. Undo removes it.
+
+### Chord pads on the Launchkey
+
+Turn on "Controller pads play these chords". The 16 pads of the Launchkey Mini MK3 play the chord pads, in place of the Clip grid. Knob 1 sets the inversion, knob 2 the voicing and knob 3 the octave. Turn the switch off to use the pads for clips again.
+
+## Kids Mode
+
+Kids Mode is for pretend play. A child presses keys and the song plays, as if the child plays it.
+
+![Kids Mode while the song plays](images/kids-mode.png)
+
+1. Open a song.
+2. Choose Transport > Kids Mode (Cmd+Alt+K).
+3. Press any key on any MIDI keyboard (the PSR-S970, the Launchkey keys or pads). The song plays.
+4. Stop pressing keys. After the wait, the song pauses.
+5. Press a key again. The song goes on from where it paused. At the end, it starts again from the top.
+
+A large circle shows the state. It is copper and moves while the song plays. Computer keys and a click on the circle also play the song.
+
+The bar at the bottom is for adults:
+
+- **Pause after**: the wait before the song pauses, from 0.5 to 5 seconds. The default is 1.5 seconds. A held key keeps the song playing.
+- **Keys also play their own notes**: off by default, so that the keys only play the song. Turn it on to also hear the notes on the track you record on.
+- **Exit Kids Mode**: go back to the normal window. Cmd+Alt+K also does this.
+
+The app remembers these settings.
+
+Note: a keyboard with its own speakers (the PSR-S970) also plays its own notes. To make the keys silent, set Local Control to Off on the keyboard, or turn its volume down.
 
 ## MIDI Map
 
@@ -672,6 +859,63 @@ change the notes to C major 7.
 
 If the style plays incorrect notes, do a check of the `Written in` chord in
 the chord rules.
+
+### Make a style from a recording (Style from Audio)
+
+The app can make a PSR-S970 style from an audio song. It copies the notes
+and the rhythm of the parts. It does not copy the sound: you select the
+voices on the keyboard.
+
+1. Select `File > Import Audio...` and open the song.
+2. Select `Style > Style from Audio...`. The AI panel shows the tool.
+3. In `Recording`, select the audio clip.
+4. Optional: type the tempo in `Tempo`. If you do not, the app finds the
+   tempo from the drums.
+5. Click `Make Style`.
+
+To use a song from YouTube (or another site), click `From Link...` in
+step 5 and paste the link. The app gets the audio with yt-dlp and puts it
+on a new audio track. Then it makes the style as usual.
+
+Note: yt-dlp and ffmpeg are free programs that you must install first.
+If they are not there, the panel shows how to install them:
+
+- macOS: `brew install yt-dlp ffmpeg`
+- Windows: `winget install yt-dlp.yt-dlp Gyan.FFmpeg`
+- Linux: `sudo apt install ffmpeg pipx && pipx install yt-dlp`
+
+Caution: Use this for personal use only. Respect the terms of the site and
+the rights of the music.
+
+If the clip does not have an analysis, the app does `Analyse Audio` first
+(stems, notes, chords). This can take some minutes.
+
+The app then does these steps:
+
+1. It finds the bar lines, the sections (Intro, Main A to D, Fill In,
+   Ending) and the chords of the song.
+2. It makes a pattern for each part from the bars of each section, and
+   moves the notes to C major 7.
+3. It plays the style with the chords of the song and compares it with
+   the stems: drum hits, timing, bass notes, chord notes, and notes per bar.
+4. It changes one setting of a part at a time (the bars it uses, the
+   pattern length, the notes that most phrases play, quantise, clean-up).
+   It keeps a change only if the match is better. It stops when no change
+   makes the match better.
+
+The panel shows the match (0 to 100%) of each section and part, and the
+changes that the app kept.
+
+<img src="images/manual-style-from-audio.png" width="500" alt="Style from Audio in the AI panel, with the match of each section">
+
+To compare the style with the recording, select a section and click
+`Original`, `Style` or `Both`. Click `Stop` to stop.
+
+To save the style, click `Save Style...`. To edit the style, click
+`Open in Loops` after you save it.
+
+Note: Drums give the best result. Pads and chords from a full mix are not
+clean. Do a check of these parts in the Clip grid.
 
 ### Change the chord rules of a part
 
@@ -937,6 +1181,10 @@ Each track has a strip:
 - **Rev** and **Cho** knobs: reverb and chorus level.
 - **Pan** knob: left or right position.
 - **M**, **S**, **R**: mute, solo, record arm.
+
+Only one track can be solo at a time. When you click **S** on a track, the
+solo goes off on the other tracks. To solo more tracks, hold `Shift` or `Cmd`
+and click **S**.
 - **Fader:** volume.
 - **Meter:** the level of tracks that use the built-in SoundFont.
 
@@ -1362,8 +1610,14 @@ The slot stays silent. The project keeps the settings of the plugin, and the plu
 The app has mixer pages for these controllers. The Launchkey Mini MK3 pads
 start clips in the first two scene rows. The X-Touch Mini Layer A buttons start
 clips in the next two rows. Both controllers keep their knobs and faders on the
-mixer. Connect the controller and enable its MIDI inputs. No other setup is
-necessary.
+mixer. Connect the controller. The app turns on its MIDI inputs. No other
+setup is necessary.
+
+The app turns on the MIDI input of each keyboard, synth and controller when you
+connect it, also when the app has no profile for it. Software ports (IAC,
+network sessions, loopMIDI) stay off, because they can send the MIDI back to
+the app. If you turn off an input in `Audio and MIDI Settings...`, the app keeps it off,
+also after you connect it again. Turn it on again to cancel this.
 
 - Novation Launchkey Mini MK3
 - Behringer X-Touch Mini
@@ -1514,12 +1768,185 @@ cancels it. The first run also loads the model, which takes a few seconds.
 You can also ask the AI chat, for example: "Write a fretless bass under bars 9
 to 16", "Humanize the drums" or "Continue the lead for 4 bars".
 
+## Arranging help
+
+Two tools in the `AI` menu help you make the arrangement better. They do not
+use an AI model. They use music rules, so they are fast and they work on any
+computer. They show suggestions, not errors: you decide.
+
+Both tools show proposals. Each proposal tells you what the tool saw, which
+tracks and bars it changes, and gives one or two options (A and B).
+
+- Select `Play A` or `Play B` to hear that option. The bars loop.
+- Select `Original` to hear the bars as they are now. You can change between
+  `Original`, A and B while the song plays.
+- Select `Use` to make the change. It is one undo step.
+- Select `Dismiss` to hide a proposal.
+- Select `Stop` to stop the comparison.
+
+The app remembers the proposals that you use and dismiss. Next time, the kinds
+that you use come first.
+
+### Arrangement Doctor
+
+1. Select `AI > Arrangement Doctor...`.
+2. Select a goal:
+   - `Make a section stand out`: type the bars of the section, for example
+     the chorus. The doctor compares the section with the bars before it.
+     It can make the bars before it lighter, make the accompaniment play
+     harder, or double chord notes an octave down or up.
+   - `Give the melody room`: finds parts that play in the range of the melody
+     at the same time. It can move these notes an octave down, or keep them
+     only in the rests of the melody.
+   - `Make busy bars clearer`: finds bars with many more notes than usual.
+     It can keep only the notes on the beats, or remove notes that other
+     tracks already play.
+   - `Repeat less`: finds parts that play the same bar for 8 bars or more. It
+     can leave space at the end of each phrase, or change every other 4 bars.
+3. If the doctor finds the wrong melody track, select it in `Melody`. The
+   doctor never changes the melody.
+4. Select `Check`.
+
+<img src="images/manual-arrangement-doctor.png" width="330" alt="The Arrangement Doctor with a proposal and its options A and B">
+
+You can also ask the AI chat, for example: "Make the chorus in bars 17 to 24
+stand out" or "Give the melody more room".
+
+### Fit to My Synths
+
+A hardware synth plays only some notes at the same time (its polyphony) and
+some sounds at the same time (its parts). When a song asks for more, notes
+cut off or a sound is lost. This tool checks your song against each synth
+that it plays on:
+
+- How many notes sound at the same time. A held sustain pedal counts.
+- How many channels go to the synth, against its parts.
+- Tracks on the same channel with different sounds.
+- Notes out of the range of the synth.
+- Drum parts on a synth that has no drum kit.
+
+1. Select `AI > Fit to My Synths...`.
+2. Look at the list of synths and their problems.
+3. Select `Play A`, `Play B` and `Use` as above.
+
+The bass, the melody and the drums are protected. The tool changes them only
+for a range or drum-kit problem.
+
+The tool uses the numbers in the device profile of each synth. The Roland
+D-05 plays 16 notes with one tone and 8 notes with two tones, so its profile
+uses 8. The XioSynth plays 8 notes. To change a number, type it under
+the name of the synth and select `Save Numbers`. Your numbers are kept for
+the next time. You can also ask the AI chat: "The D-05 plays 16 voices with
+this patch".
+
+## Groove
+
+A groove is the feel of a part: how early or late each step plays, and how
+loud. The Groove tool takes the groove from one part and puts it on other
+parts. Use it to make stiff parts sound played, or to make all parts play
+with the same feel.
+
+1. Select `AI > Groove...`.
+2. In `From`, select where the groove comes from:
+   - A MIDI track. This is the most exact source.
+   - An audio track. The app finds the hits in the sound. This works best
+     with drums or a part with a clear rhythm.
+   - `A file (MIDI or audio)...`. Select a `.mid` file or an audio file.
+   - `Words (describe the feel)`. Type the feel, for example
+     `lazy swing, behind the beat`, `pushed 16ths` or
+     `tight kick, lazy snare, backbeat`.
+3. Select `Take` (or `Choose...` for a file). The app keeps the groove in your
+   groove library, and shows it in words, for example
+   `Swing 62% (8ths), 14 ms behind the beat`.
+4. In `Groove`, select a groove. The built-in grooves are at the top. Your
+   grooves are under `Your grooves`.
+5. In `Put on`, select one track, or `All other tracks`.
+6. Set the amounts:
+   - `Timing`: how far the notes move to the timing of the groove.
+   - `Accents`: how much of the loud and soft steps of the groove the notes
+     take. The part keeps its own level.
+   - `Kick`, `Snare` and `Hi-hats`: for drum parts only. For example, set
+     `Kick` to 0 % to keep the kick on the grid.
+7. Read the `Feel match` line. It compares the parts with the groove now and
+   with the groove on them (100 is the same feel).
+8. Select `Play Before` and `Play After` to compare. The bars loop. The song
+   does not change.
+9. Select `Apply`. It is one undo step.
+
+If the loop is on, the tool takes and changes only the bars of the loop.
+
+The app keeps your grooves as `.groove` files in the `Grooves` folder of the
+app data. You can copy them to another computer.
+
+You can also ask the AI chat, for example: "Take the groove from the drums
+and put it on the bass and the piano, but keep the kick tight", or "Give the
+keys a lazy swing feel". The assistant can compare the result with the groove
+and try other amounts.
+
+<img src="images/manual-groove.png" width="330" alt="The Groove tool with a groove made from words">
+
+## Song Forms
+
+A song form is another order of the sections of your song. For example: a
+short version, a longer intro, a version for a gig, or a break for a solo.
+The app keeps each form in the song. It does not copy the Timeline. The
+Timeline changes only when you use a form.
+
+1. Select `AI > Song Forms...`.
+2. Look at the sections. Each line is a name and its bars, for example
+   `Chorus 1: 13-20`. If the song has no saved sections, the app finds them
+   from the music. Correct the names or bars if necessary, then select
+   `Save Sections`. Each section must have its own name.
+3. Select a form in `New form`, then select `Make`:
+   - `Short version`: the intro, the first verse and chorus, the last chorus
+     and the outro.
+   - `Long intro`: the intro two times. The first time, only the drums and
+     the bass play.
+   - `Gig version`: the intro two times, the last chorus two times and a
+     final chord.
+   - `Instrumental break`: a verse without the melody before the last chorus.
+     Use it for a solo.
+   - `My order`: type the section names in order, for example
+     `Intro, Verse 1, Chorus 1 x2, Verse 2 (no melody), Outro`. `x2` plays a
+     section two times. `(no melody)` rests the melody in that part. You can
+     also give a track name or `bass`, `drums` or `chords`.
+4. Select `Play Form` to hear the form from its start. The song does not
+   change.
+
+Where a form puts two sections together that are not together in the
+original, the app adds a transition at the join:
+
+| Transition | What it does |
+| --- | --- |
+| Drum fill | A fill on the drums in the last beat or two. If the song has a style, the style's Fill In plays. |
+| Lead-in | The last two beats that come before the next section in the original. Without them, the bass walks up to the next section. |
+| Hold the chord | The band holds the chord for the last two beats. |
+| Break | One beat of silence. |
+| Straight cut | No change. |
+
+`Automatic` selects the transition that fits both sides. The card shows why.
+For example, a drum fill before a busier section, or a held chord before a
+quieter section. To compare, select `Play` at the join. Two bars on each side
+of the join play again and again. Change the transition while it plays.
+
+5. Select `Use` to write the form on the Timeline. It is one undo step. The
+   sections then follow the form, and the forms are removed. `Undo` brings
+   back the original song and its forms.
+
+The saved sections show on the ruler of the Timeline.
+
+<img src="images/manual-song-forms.png" width="330" alt="Song Forms with a gig version and the transition at its first join">
+
+You can also ask the AI chat, for example: "Make a short version of this song"
+or "Use a held chord before the outro".
+
 ## Files
 
 | Action | Menu | Key |
 | --- | --- | --- |
 | New project | `File > New` | `Cmd+N` |
 | Open a project or a MIDI file | `File > Open...` | `Cmd+O` |
+| Open a file that you used recently | `File > Open Recent` | |
 | Save | `File > Save` | `Cmd+S` |
 | Save with a new name | `File > Save As...` | `Cmd+Shift+S` |
 | Import a MIDI file | `File > Import MIDI File...` | `Cmd+Shift+I` |
@@ -1531,6 +1958,14 @@ to 16", "Humanize the drums" or "Continue the lead for 4 bars".
 | Export a song for the PSR-S970 | `File > Export Song for PSR-S970...` | |
 
 Project files have the extension `.arranger`.
+
+`File > Open Recent` shows the last 10 files that you opened or saved. The
+newest file is at the top. Files that you moved or deleted are not on the
+list. To remove all the files from the list, select `Clear List`.
+
+Each file window starts in the last folder that you used for that type of
+file. For example, `Export MIDI File...` starts in the folder of your last
+MIDI export, and `Open...` starts in the folder of your last project.
 
 A project file does not contain the audio. It contains the paths of the audio files.
 If you move or delete an audio file, its clips show `File not found`.
@@ -1665,8 +2100,8 @@ The check only reads the public release page. It sends no song data.
 | --- | --- |
 | No sound from a SoundFont track | Make sure that an audio device is open and a SoundFont is loaded. The inspector shows the two. |
 | No sound from a synth | Make sure that the track output is the MIDI port of the synth and the channel is correct. |
-| The keyboard does not record | Enable the keyboard as a MIDI input in `Audio and MIDI Settings...`. Look for the dot in the bottom bar. |
+| The keyboard does not record | Look for the dot in the bottom bar. If it does not come on, turn on the keyboard input in `Audio and MIDI Settings...`. You turned it off before, or it is a software port. |
 | A synth plays the wrong sound | Select the sound again. If the list is incorrect, check the device profile. |
 | The sound editor does not change the synth | Make sure that the channel in the sound editor is the MIDI channel of the synth. On the D-05, the device ID must agree with the channel. |
 | `Get Sound Names` finds no names | Turn on the MIDI input of the synth in `Options > Audio and MIDI Settings...`. |
-| A controller does nothing | Enable all MIDI inputs of the controller. For the X-Touch Mini, make sure that the `MC MODE` light is off. |
+| A controller does nothing | Make sure that all MIDI inputs of the controller are on in `Audio and MIDI Settings...`. For the X-Touch Mini, make sure that the `MC MODE` light is off. |
