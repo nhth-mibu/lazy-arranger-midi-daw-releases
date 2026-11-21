@@ -13,7 +13,7 @@ position on the first touch.
 ## Novation Launchkey Mini MK3
 
 The app puts the keyboard in DAW mode when it connects and takes it out again
-on quit. Enable both of its MIDI inputs in Audio and MIDI settings.
+on quit. The app turns on both of its MIDI inputs when you plug it in.
 
 | Control | Does |
 | --- | --- |
@@ -75,6 +75,7 @@ controller: 1
 id: behringer-x-touch-mini
 name: Behringer X-Touch Mini
 ports: ["X-TOUCH MINI"]   # part of the MIDI port name
+keyPorts: ["Launchkey Mini MK3 MIDI"]  # optional: the controller's keyboard ports. They play tracks, but come on with the controller
 channel: 0                # 0 = the whole port is the controller, or 1-16
 strips: 8
 connect: ["9F 0C 7F"]     # optional messages sent when it is plugged in
